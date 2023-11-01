@@ -1,7 +1,11 @@
+import ImageGallery from "./components/ImageGallery";
+
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <div className="max-w-screen-xl m-auto py-5">
+        <ImageGallery />
+      </div>
     </>
   );
 }
