@@ -2,6 +2,7 @@ import update from "immutability-helper";
 import { useCallback, useState } from "react";
 import Card from "./ImageCard";
 import imageLists from "../utils/dummyImages.json";
+import ImageDragDroopInp from "./ImageDragDropInp";
 
 function ImageGallery() {
   const [cards, setCards] = useState([...imageLists]);
@@ -17,16 +18,13 @@ function ImageGallery() {
     );
   }, []);
 
-  console.log(cards);
-
-  const renderCard = useCallback((card, index) => {
+  const renderCard = useCallback((image, idx) => {
     return (
       <Card
-        key={card.id}
-        index={index}
-        id={card.id}
-        text={card.text}
-        imageSrc={card.image}
+        key={image.id}
+        index={idx}
+        id={image.id}
+        imageSrc={image.image}
         moveCard={moveCard}
       />
     );
@@ -34,14 +32,12 @@ function ImageGallery() {
   }, []);
 
   return (
-    <>
+    <div className="px-4 py-5">
       <div className="grid grid-cols-5 gap-4 [&>*:first-child]:row-span-2 [&>*:first-child]:col-span-2 [&>*:first-child]:h-[27rem] [&>*]:rounded-lg [&>*]:border [&>*]:w-full [&>*]:h-52 [&>*]:bg-gray-300">
-        {cards.map((card, i) => renderCard(card, i))}
-        <div className="border border-2 rounded-lg bg-gray-300 flex justify-center items-center h-full w-full">
-          Add image
-        </div>
+        {cards.map((card, idx) => renderCard(card, idx))}
+        <ImageDragDroopInp />
       </div>
-    </>
+    </div>
   );
 }
 

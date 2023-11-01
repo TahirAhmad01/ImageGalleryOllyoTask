@@ -9,7 +9,7 @@ function ImageCard({ id, index, imageSrc, moveCard }) {
     accept: "card",
     collect(monitor) {
       return {
-        insDrop: !!monitor.getHandlerId(),
+        insDrop: !!monitor.isOver(),
       };
     },
     hover(item, monitor) {
@@ -22,16 +22,19 @@ function ImageCard({ id, index, imageSrc, moveCard }) {
         return;
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY = hoverBoundingRect;
       const clientOffset = monitor.getClientOffset();
+
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
+
+      console.log(hoverBoundingRect);
       moveCard(dragIndex, hoverIndex);
       item.index = hoverIndex;
     },
@@ -50,15 +53,17 @@ function ImageCard({ id, index, imageSrc, moveCard }) {
 
   return (
     <div
-      className={`border border-2 rounded-lg bg-gray-300 overflow-hidden relative block ${isDrop && "opacity-20"}`}
+      className={`border border-2 rounded-lg bg-gray-300 overflow-hidden relative block before:contents[""] before:absolute before:h-0 before:w-0 before:bg-black before:opacity-0 before:transition before:ease-in-out before:duration-[.6s] hover:before:opacity-40 hover:before:h-full hover:before:w-full hover:cursor-pointer group ${
+        isDrop &&
+        "transition ease-in-out duration-[6s] border-red-800 rotate-180"
+      } ${isDragging && "border-black opacity-50 h-10 w-10"}`}
       ref={ref}
-      style={{ border: isDragging ? "2px solid black" : "" }}
     >
       <input
         type="checkbox"
         value=""
         name="bordered-checkbox"
-        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 absolute top-3 left-3"
+        className=" w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 absolute top-3 left-3 hidden group-hover:block"
       />
       <img src={imageSrc} alt="image" className="w-full h-full object-cover" />
     </div>
@@ -71,6 +76,5 @@ ImageCard.propTypes = {
   imageSrc: PropTypes.any,
   moveCard: PropTypes.any,
 };
-
 
 export default ImageCard;
