@@ -7,18 +7,19 @@ function ImageDragDroopInp({ images, setImages }) {
 
   const onDrop = useCallback(
     (acceptedFiles) => {
-      console.log(images);
       if (acceptedFiles?.length > 0) {
-        const file = acceptedFiles[0];
-        const arrayLastItem = images.slice(-1)[0];
-        const newId = arrayLastItem ? arrayLastItem.id + 1 : 1;
-        const newImageObject = {
-          id: newId,
-          imageSrc: URL.createObjectURL(file),
-          selected: false,
-        };
-        setImages([...images, newImageObject]);
-        setWrongFile && setWrongFile(false);
+        const updatedImages = acceptedFiles.map((file, idx) => {
+          const arrayLastItem = images.slice(-1)[0];
+          const newId = arrayLastItem ? arrayLastItem.id + (idx + 1) : 1;
+          const newImageObject = {
+            id: newId,
+            imageSrc: URL.createObjectURL(file),
+            selected: false,
+          };
+          return newImageObject;
+        });
+        setImages([...images, ...updatedImages]);
+        setWrongFile(false);
       } else {
         setWrongFile(true);
       }
