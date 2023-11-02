@@ -1,25 +1,31 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { PropTypes } from "prop-types";
 
-export default function ImageDragDroopInp({ images, setImages }) {
+function ImageDragDroopInp({ images, setImages }) {
   const [wrongFile, setWrongFile] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles?.length > 0) {
-      const file = acceptedFiles[0];
-      const arrayLastItem = images.slice(-1)[0]; 
-      const newImageObject = {
-        id: arrayLastItem + 1,
-        imageSrc: URL.createObjectURL(file),
-        selected: false,
-      };
-      setImages([...images, newImageObject]);
-      setWrongFile && setWrongFile(false);
-    } else {
-      setWrongFile(true);
-    }
-    // eslint-disable-next-line no-use-before-define, react-hooks/exhaustive-deps
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      console.log(images);
+      if (acceptedFiles?.length > 0) {
+        const file = acceptedFiles[0];
+        const arrayLastItem = images.slice(-1)[0];
+        const newId = arrayLastItem ? arrayLastItem.id + 1 : 1;
+        const newImageObject = {
+          id: newId,
+          imageSrc: URL.createObjectURL(file),
+          selected: false,
+        };
+        setImages([...images, newImageObject]);
+        setWrongFile && setWrongFile(false);
+      } else {
+        setWrongFile(true);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [images]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -39,7 +45,7 @@ export default function ImageDragDroopInp({ images, setImages }) {
     >
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col justify-center items-center w-full h-52 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="flex flex-col justify-center items-center w-full h-full bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         <div className="flex flex-col justify-center items-center pt-5 pb-6">
           <svg
@@ -76,3 +82,10 @@ export default function ImageDragDroopInp({ images, setImages }) {
     </div>
   );
 }
+
+ImageDragDroopInp.propTypes = {
+  images: PropTypes.any,
+  setImages: PropTypes.any,
+};
+
+export default ImageDragDroopInp;

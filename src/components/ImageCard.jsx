@@ -16,7 +16,7 @@ function ImageCard({ id, index, imageSrc, selected, onClick, moveCard }) {
       if (!ref.current) {
         return;
       }
-      
+
       const dragIndex = item.index;
       const hoverIndex = index;
 
@@ -56,16 +56,22 @@ function ImageCard({ id, index, imageSrc, selected, onClick, moveCard }) {
 
   return (
     <div
-      className={`border-2 rounded-lg bg-gray-300 overflow-hidden relative block before:contents[""] before:absolute before:h-0 before:w-0 before:bg-black before:opacity-0 before:transition before:ease-in-out before:duration-[.6s] hover:before:opacity-40 hover:before:h-full hover:before:w-full hover:cursor-pointer group ${ isDrop && "transition ease-in-out duration-[6s] border-red-800 rotate-180"} ${isDragging && "border-black opacity-50 h-10 w-10"}`}
+      className={`border-2 rounded-lg bg-gray-300 overflow-hidden block relative before:contents[""] before:absolute before:h-0 before:w-0 before:bg-black before:opacity-0 before:transition before:ease-in-out before:duration-[.6s] before:z-40 hover:before:opacity-40 hover:before:h-full hover:before:w-full hover:cursor-pointer group ${
+        isDrop &&
+        "transition ease-in-out duration-[6s] border-red-800 rotate-180"
+      } ${isDragging && "border-black opacity-50 h-10 w-10"}`}
       ref={ref}
       onClick={() => onClick(id)}
     >
+      {selected && (
+        <div className="absolute top-0 left-0 w-full h-full bg-gray-100 opacity-50"></div>
+      )}
       <input
         type="checkbox"
         checked={selected}
         readOnly
         name="bordered-checkbox"
-        className=" w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 absolute top-3 left-3 hidden group-hover:block checked:block"
+        className=" w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 absolute top-4 left-4 z-50 hidden group-hover:block checked:block"
       />
       <img src={imageSrc} alt="image" className="w-full h-full object-cover" />
     </div>
