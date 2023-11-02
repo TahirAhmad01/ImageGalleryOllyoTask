@@ -14,6 +14,7 @@ function SelectItems({ selectedCount = 0, images, setImages }) {
       ...image,
       selected: false,
     }));
+    
     setImages(updatedImages);
     !setChecked;
   };

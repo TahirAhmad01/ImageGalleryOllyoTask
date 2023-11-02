@@ -1,16 +1,23 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-export default function ImageDragDroopInp() {
+export default function ImageDragDroopInp({ images, setImages }) {
   const [wrongFile, setWrongFile] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles?.length > 0) {
+      const file = acceptedFiles[0];
+      const arrayLastItem = images.slice(-1)[0]; 
+      const newImageObject = {
+        id: arrayLastItem + 1,
+        imageSrc: URL.createObjectURL(file),
+        selected: false,
+      };
+      setImages([...images, newImageObject]);
       setWrongFile && setWrongFile(false);
     } else {
       setWrongFile(true);
     }
-    console.log(acceptedFiles);
     // eslint-disable-next-line no-use-before-define, react-hooks/exhaustive-deps
   }, []);
 

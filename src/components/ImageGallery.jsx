@@ -48,7 +48,7 @@ function ImageGallery({ images, setImages }) {
     <div className="px-4 py-5">
       <div className="grid grid-cols-5 gap-4 [&>*:first-child]:row-span-2 [&>*:first-child]:col-span-2 [&>*:first-child]:h-[27rem] [&>*]:rounded-lg [&>*]:border [&>*]:w-full [&>*]:h-52 [&>*]:bg-gray-300">
         {images?.map((card, idx) => renderCard(card, idx))}
-        <ImageDragDroopInp />
+        <ImageDragDroopInp images={images} setImages={setImages} />
       </div>
     </div>
   );

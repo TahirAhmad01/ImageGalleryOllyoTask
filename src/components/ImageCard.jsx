@@ -16,11 +16,14 @@ function ImageCard({ id, index, imageSrc, selected, onClick, moveCard }) {
       if (!ref.current) {
         return;
       }
+      
       const dragIndex = item.index;
       const hoverIndex = index;
+
       if (dragIndex === hoverIndex) {
         return;
       }
+
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = hoverBoundingRect;
       const clientOffset = monitor.getClientOffset();
@@ -61,7 +64,6 @@ function ImageCard({ id, index, imageSrc, selected, onClick, moveCard }) {
         type="checkbox"
         checked={selected}
         readOnly
-        value=""
         name="bordered-checkbox"
         className=" w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 absolute top-3 left-3 hidden group-hover:block checked:block"
       />
