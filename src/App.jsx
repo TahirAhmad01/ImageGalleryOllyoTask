@@ -13,7 +13,11 @@ function App() {
     <div className="bg-gray-100 min-h-screen">
       <div className="max-w-screen-xl m-auto py-5">
         <div className="bg-white rounded-lg shadow-md">
-          <SelectItems selectedCount={selectedItemCount} />
+          <SelectItems
+            selectedCount={selectedItemCount}
+            images={images}
+            setImages={setImages}
+          />
           <ImageGallery images={images} setImages={setImages} />
         </div>
       </div>
