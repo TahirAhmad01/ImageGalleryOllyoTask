@@ -1,14 +1,12 @@
 import update from "immutability-helper";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import Card from "./ImageCard";
-import imageLists from "../utils/dummyImages.json";
 import ImageDragDroopInp from "./ImageDragDropInp";
+import { PropTypes } from "prop-types";
 
-function ImageGallery() {
-  const [cards, setCards] = useState([...imageLists]);
-
+function ImageGallery({ images, setImages }) {
   const moveCard = useCallback((dragIndex, hoverIndex) => {
-    setCards((prevCards) =>
+    setImages((prevCards) =>
       update(prevCards, {
         $splice: [
           [dragIndex, 1],
@@ -16,16 +14,31 @@ function ImageGallery() {
         ],
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const selectedImage = (id) => {
+    setImages((prevImages) => {
+      return prevImages.map((image) => {
+        if (image.id === id) {
+          return { ...image, selected: !image.selected };
+        }
+        return image;
+      });
+    });
+  };
+
   const renderCard = useCallback((image, idx) => {
+    const { id, imageSrc, selected } = image || {};
     return (
       <Card
-        key={image.id}
+        key={id}
         index={idx}
-        id={image.id}
-        imageSrc={image.image}
+        id={id}
+        imageSrc={imageSrc}
         moveCard={moveCard}
+        selected={selected}
+        onClick={selectedImage}
       />
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,11 +47,16 @@ function ImageGallery() {
   return (
     <div className="px-4 py-5">
       <div className="grid grid-cols-5 gap-4 [&>*:first-child]:row-span-2 [&>*:first-child]:col-span-2 [&>*:first-child]:h-[27rem] [&>*]:rounded-lg [&>*]:border [&>*]:w-full [&>*]:h-52 [&>*]:bg-gray-300">
-        {cards.map((card, idx) => renderCard(card, idx))}
+        {images?.map((card, idx) => renderCard(card, idx))}
         <ImageDragDroopInp />
       </div>
     </div>
   );
 }
+
+ImageGallery.propTypes = {
+  images: PropTypes.any,
+  setImages: PropTypes.any,
+};
 
 export default ImageGallery;
