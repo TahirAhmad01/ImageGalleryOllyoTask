@@ -10,7 +10,7 @@ function ImageDragDroopInp({ images, setImages }) {
       if (acceptedFiles?.length > 0) {
         const updatedImages = acceptedFiles.map((file, idx) => {
           const arrayLastItem = images.slice(-1)[0];
-          const newId = arrayLastItem ? arrayLastItem.id + (idx + 1) : 1;
+          const newId = arrayLastItem ? arrayLastItem.id + (idx + 1) : idx + 1;
           const newImageObject = {
             id: newId,
             imageSrc: URL.createObjectURL(file),

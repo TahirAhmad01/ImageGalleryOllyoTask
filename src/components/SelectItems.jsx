@@ -14,7 +14,7 @@ function SelectItems({ selectedCount = 0, images, setImages }) {
       ...image,
       selected: false,
     }));
-    
+
     setImages(updatedImages);
     !setChecked;
   };
@@ -30,11 +30,15 @@ function SelectItems({ selectedCount = 0, images, setImages }) {
               name="bordered-checkbox"
               onChange={handelImageDeselect}
               checked={checked}
-              className=" w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              id="checkbox"
+              className=" w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 hover:cursor-pointer"
             />
-            <span className="font-semibold text-lg">
+            <label
+              className="font-semibold text-lg hover:cursor-pointer"
+              htmlFor="checkbox"
+            >
               {selectedCount} items selected
-            </span>
+            </label>
           </div>
           <button
             type="button"
