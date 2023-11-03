@@ -62,6 +62,7 @@ function ImageCard({
   });
   drag(drop(ref));
 
+  // image card selection
   const cardSelected = () => {
     setImages((prevImages) => {
       return prevImages.map((image) => {

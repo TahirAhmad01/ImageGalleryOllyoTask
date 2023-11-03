@@ -1,14 +1,30 @@
 import update from "immutability-helper";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import Card from "./ImageCard";
 import ImageDragDroopInp from "./ImageDragDropInp";
 import { PropTypes } from "prop-types";
 import { PhotoProvider, PhotoSlider } from "react-photo-view";
 import { useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function ImageGallery({ images, setImages }) {
   const [visible, setVisible] = useState(false);
   const [index, setIndex] = useState(0);
+  const [parent, enableAnimations] = useAutoAnimate(false);
+  const [arrayLength, setArrayLength] = useState(images.length);
+
+  useEffect(() => {
+    const currentLength = images.length;
+
+    // animation when image add or remove
+    if (currentLength > arrayLength || currentLength < arrayLength) {
+      enableAnimations(true);
+      setArrayLength(images.length);
+    } else {
+      enableAnimations(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [images]);
 
   // for Dnd move card
   const moveCard = useCallback((dragIndex, hoverIndex) => {
@@ -49,7 +65,10 @@ function ImageGallery({ images, setImages }) {
 
   return (
     <div className="px-4 py-5">
-      <div className="grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:[&>*:first-child]:row-span-2 md:[&>*:first-child]:col-span-2 md:[&>*:first-child]:h-[27rem] md:[&>*]:rounded-lg [&>*]:border [&>*]:w-full md:[&>*]:h-52 [&>*]:h-72 [&>*]:bg-gray-300">
+      <div
+        className="grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:[&>*:first-child]:row-span-2 md:[&>*:first-child]:col-span-2 md:[&>*:first-child]:h-[27rem] md:[&>*]:rounded-lg [&>*]:border [&>*]:w-full md:[&>*]:h-52 [&>*]:h-72 [&>*]:bg-gray-300"
+        ref={parent}
+      >
         {images?.map((card, idx) => renderCard(card, idx))}
         <ImageDragDroopInp images={images} setImages={setImages} />
         <PhotoProvider>

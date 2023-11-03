@@ -11,11 +11,9 @@ function ImageDragDroopInp({ images, setImages }) {
       if (acceptedFiles?.length > 0) {
         const updatedImages = acceptedFiles.map((file, idx) => {
           // Image Array Max Id for unique new id generation
-          const maxId = images.reduce(
-            (max, item) => (item.id > max ? item.id : max),
-            0
-          );
+          const maxId = images.reduce((max, item) => (item.id > max ? item.id : max),0);
           const newId = maxId ? maxId + (idx + 1) : idx + 1;
+          
           // New image object for inset Array Item
           const newImageObject = {
             id: newId,
@@ -34,7 +32,7 @@ function ImageDragDroopInp({ images, setImages }) {
     [images]
   );
 
-  //drop handle
+  // image file drop handle
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
