@@ -5,11 +5,13 @@ import logo from "../assets/image/logo.svg";
 function SelectItems({ selectedCount = 0, images, setImages }) {
   const [checked, setChecked] = useState(true);
 
+  // selected image delete
   const handleImageClick = () => {
     const updatedImages = images.filter((image) => !image.selected);
     setImages(updatedImages);
   };
 
+  // selected image deselect
   const handelImageDeselect = () => {
     const updatedImages = images.map((image) => ({
       ...image,

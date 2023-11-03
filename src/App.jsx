@@ -2,6 +2,7 @@ import { useState } from "react";
 import ImageGallery from "./components/ImageGallery";
 import SelectItems from "./components/SelectItems";
 import imageLists from "./utils/dummyImages.json";
+import "react-photo-view/dist/react-photo-view.css";
 
 function App() {
   const [images, setImages] = useState([...imageLists]);
@@ -17,6 +18,15 @@ function App() {
             setImages={setImages}
           />
           <ImageGallery images={images} setImages={setImages} />
+
+          {/* <button
+            onClick={() => {
+              setVisible(true);
+              console.log(visible);
+            }}
+          >
+            Click
+          </button> */}
         </div>
       </div>
     </div>

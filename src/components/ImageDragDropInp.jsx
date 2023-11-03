@@ -10,8 +10,13 @@ function ImageDragDroopInp({ images, setImages }) {
     (acceptedFiles) => {
       if (acceptedFiles?.length > 0) {
         const updatedImages = acceptedFiles.map((file, idx) => {
-          const arrayLastItem = images.slice(-1)[0];
-          const newId = arrayLastItem ? arrayLastItem.id + (idx + 1) : idx + 1;
+          // Image Array Max Id for unique new id generation
+          const maxId = images.reduce(
+            (max, item) => (item.id > max ? item.id : max),
+            0
+          );
+          const newId = maxId ? maxId + (idx + 1) : idx + 1;
+          // New image object for inset Array Item
           const newImageObject = {
             id: newId,
             imageSrc: URL.createObjectURL(file),
