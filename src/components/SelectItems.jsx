@@ -2,7 +2,8 @@ import { PropTypes } from "prop-types";
 import { useState } from "react";
 import logo from "../assets/image/logo.svg";
 
-function SelectItems({ selectedCount = 0, images, setImages }) {
+function SelectItems({ images, setImages }) {
+  const selectedItemCount = images.filter((image) => image.selected).length;
   const [checked, setChecked] = useState(true);
 
   // selected image delete
@@ -24,7 +25,7 @@ function SelectItems({ selectedCount = 0, images, setImages }) {
 
   return (
     <>
-      {selectedCount > 0 ? (
+      {selectedItemCount > 0 ? (
         <div className="w-full flex justify-between items-center px-5 py-4 border-b">
           <div className="flex items-center justify-start gap-2">
             <input
@@ -37,23 +38,23 @@ function SelectItems({ selectedCount = 0, images, setImages }) {
               className=" w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 hover:cursor-pointer"
             />
             <label
-              className="font-semibold text-lg hover:cursor-pointer"
+              className="font-semibold text-md md:text-lg hover:cursor-pointer"
               htmlFor="checkbox"
             >
-              {selectedCount} items selected
+              {selectedItemCount} items selected
             </label>
           </div>
           <button
             type="button"
-            className="px-3 py-2 rounded-3xl hover:bg-red-100 text-red-600"
+            className="md:px-7 px-4 py-2 text-sm font-semibold rounded-3xl bg-gray-50 hover:bg-red-100 text-red-600"
             onClick={handleImageClick}
           >
-            Delete Image
+            Delete Files
           </button>
         </div>
       ) : (
-        <div className=" px-5 py-4 border-b text-xl font-semibold flex items-center gap-2">
-          <img src={logo} className="w-10" />
+        <div className="px-5 py-4 border-b text-xl font-semibold flex items-center gap-2">
+          <img src={logo} className="w-9" />
           Image Gallery
         </div>
       )}

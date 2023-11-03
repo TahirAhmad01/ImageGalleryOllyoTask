@@ -1,11 +1,11 @@
 import update from "immutability-helper";
 import { useCallback, useEffect } from "react";
 import Card from "./ImageCard";
-import ImageDragDroopInp from "./ImageDragDropInp";
+import ImageDragDroopInp from "./ImageDragDropFile";
 import { PropTypes } from "prop-types";
-import { PhotoProvider, PhotoSlider } from "react-photo-view";
 import { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import ImagePreview from "./ImagePreview";
 
 function ImageGallery({ images, setImages }) {
   const [visible, setVisible] = useState(false);
@@ -71,18 +71,13 @@ function ImageGallery({ images, setImages }) {
       >
         {images?.map((card, idx) => renderCard(card, idx))}
         <ImageDragDroopInp images={images} setImages={setImages} />
-        <PhotoProvider>
-          <PhotoSlider
-            images={images.map((item) => ({
-              src: item.imageSrc,
-              key: item.id,
-            }))}
-            visible={visible}
-            onClose={() => setVisible(false)}
-            index={index}
-            onIndexChange={setIndex}
-          />
-        </PhotoProvider>
+        <ImagePreview
+          images={images}
+          visible={visible}
+          setVisible={setVisible}
+          index={index}
+          setIndex={setIndex}
+        />
       </div>
     </div>
   );
