@@ -8,7 +8,7 @@ function App() {
   const selectedItemCount = images.filter((image) => image.selected).length;
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen light">
       <div className="max-w-screen-xl m-auto py-5">
         <div className="bg-white rounded-lg shadow-md">
           <SelectItems

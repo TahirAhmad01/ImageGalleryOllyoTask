@@ -1,5 +1,6 @@
 import { PropTypes } from "prop-types";
 import { useState } from "react";
+import logo from "../assets/image/logo.svg";
 
 function SelectItems({ selectedCount = 0, images, setImages }) {
   const [checked, setChecked] = useState(true);
@@ -49,7 +50,8 @@ function SelectItems({ selectedCount = 0, images, setImages }) {
           </button>
         </div>
       ) : (
-        <div className=" px-5 py-4 border-b text-xl font-semibold">
+        <div className=" px-5 py-4 border-b text-xl font-semibold flex items-center gap-2">
+          <img src={logo} className="w-10" />
           Image Gallery
         </div>
       )}

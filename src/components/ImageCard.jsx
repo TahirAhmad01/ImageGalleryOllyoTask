@@ -5,6 +5,7 @@ import { useDrag, useDrop } from "react-dnd";
 function ImageCard({ id, index, imageSrc, selected, onClick, moveCard }) {
   const ref = useRef(null);
 
+  //image card drag
   const [{ isDrop }, drop] = useDrop({
     accept: "card",
     collect(monitor) {
@@ -36,13 +37,12 @@ function ImageCard({ id, index, imageSrc, selected, onClick, moveCard }) {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-
-      console.log(hoverBoundingRect);
       moveCard(dragIndex, hoverIndex);
       item.index = hoverIndex;
     },
   });
 
+  //image card drop
   const [{ isDragging }, drag] = useDrag({
     type: "card",
     item: () => {

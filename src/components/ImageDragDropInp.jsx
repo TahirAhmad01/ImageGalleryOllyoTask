@@ -5,6 +5,7 @@ import { PropTypes } from "prop-types";
 function ImageDragDroopInp({ images, setImages }) {
   const [wrongFile, setWrongFile] = useState(false);
 
+  // image file selection with dropzone
   const onDrop = useCallback(
     (acceptedFiles) => {
       if (acceptedFiles?.length > 0) {
@@ -28,6 +29,7 @@ function ImageDragDroopInp({ images, setImages }) {
     [images]
   );
 
+  //drop handle
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
