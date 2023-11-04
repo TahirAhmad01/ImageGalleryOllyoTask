@@ -23,6 +23,7 @@ function ImageGallery({ images, setImages }) {
     } else {
       enableAnimations(false);
     }
+    console.log(images);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
@@ -66,7 +67,7 @@ function ImageGallery({ images, setImages }) {
   return (
     <div className="px-4 py-5">
       <div
-        className="grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 md:[&>*:first-child]:row-span-2 md:[&>*:first-child]:col-span-2 md:[&>*:first-child]:h-[27rem] md:[&>*]:rounded-lg [&>*]:border [&>*]:w-full md:[&>*]:h-52 [&>*]:h-72 [&>*]:bg-gray-300"
+        className="grid xl:grid-cols-5 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5 md:[&>*:first-child]:row-span-2 md:[&>*:first-child]:col-span-2 md:[&>*:first-child]:h-[27rem] md:[&>*]:rounded-lg [&>*]:border [&>*]:w-full md:[&>*]:h-52 [&>*]:h-72 [&>*]:bg-gray-300"
         ref={parent}
       >
         {images?.map((card, idx) => renderCard(card, idx))}

@@ -12,11 +12,11 @@
 - [x] Node (initialize project with v21.0.0)
 
 ### Dependencies
-- [x] react-dnd (Drag and drop)
+
+- [x] react-dnd (Drag and drop for image shoring)
 - [x] react-dropzone (handle file drop)
 - [x] react-photo-view (image preview)
 - [x] @formkit/auto-animate (add/remove card animation)
-
 
 ### How to run this project
 
