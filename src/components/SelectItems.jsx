@@ -49,14 +49,14 @@ function SelectItems({ images, setImages }) {
           <div className="flex gap-1 md:gap-3">
             <button
               type="button"
-              className="px-3 md:px-7 py-2 md:py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-gray-100 hover:bg-blue-600 hover:text-white text-blue-600"
+              className="px-4 md:px-7 py-1 md:py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-gray-100 hover:bg-blue-600 hover:text-white text-blue-600"
               onClick={() => handelImageSelectDeselect(!areAllImagesSelected)}
             >
               {areAllImagesSelected ? "Deselect All" : "Select All"}
             </button>
             <button
               type="button"
-              className="px-3 md:px-7 py-2 md:py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-red-100 hover:bg-red-600 hover:text-white text-red-600"
+              className="px-4 md:px-7 py-1 md:py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-red-100 hover:bg-red-600 hover:text-white text-red-600"
               onClick={handleImageClick}
             >
               Delete Files
