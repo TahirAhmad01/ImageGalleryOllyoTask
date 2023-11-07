@@ -1,10 +1,8 @@
 import { PropTypes } from "prop-types";
-import { useState } from "react";
 import logo from "../assets/image/logo.svg";
 
 function SelectItems({ images, setImages }) {
   const selectedItemCount = images.filter((image) => image.selected).length;
-  const [checked] = useState(true);
 
   // Function for check all images are selected
   const areAllImagesSelected = images.every((image) => image.selected);
@@ -36,7 +34,8 @@ function SelectItems({ images, setImages }) {
               value=""
               name="bordered-checkbox"
               onChange={() => handelImageSelectDeselect(false)}
-              checked={checked}
+              checked
+              readOnly
               id="checkbox"
               className=" w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 hover:cursor-pointer"
             />
@@ -50,14 +49,14 @@ function SelectItems({ images, setImages }) {
           <div className="flex gap-1 md:gap-3">
             <button
               type="button"
-              className="md:px-7 px-3 py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-gray-50 hover:bg-blue-100 text-blue-600"
+              className="px-3 md:px-7 py-2 md:py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-gray-100 hover:bg-blue-600 hover:text-white text-blue-600"
               onClick={() => handelImageSelectDeselect(!areAllImagesSelected)}
             >
               {areAllImagesSelected ? "Deselect All" : "Select All"}
             </button>
             <button
               type="button"
-              className="md:px-7 px-3 py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-gray-50 hover:bg-red-100 text-red-600"
+              className="px-3 md:px-7 py-2 md:py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-red-100 hover:bg-red-600 hover:text-white text-red-600"
               onClick={handleImageClick}
             >
               Delete Files
