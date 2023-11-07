@@ -23,7 +23,7 @@ function ImageGallery({ images, setImages }) {
     } else {
       enableAnimations(false);
     }
-    console.log(images);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 

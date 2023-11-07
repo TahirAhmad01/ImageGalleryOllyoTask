@@ -4,23 +4,26 @@ import logo from "../assets/image/logo.svg";
 
 function SelectItems({ images, setImages }) {
   const selectedItemCount = images.filter((image) => image.selected).length;
-  const [checked, setChecked] = useState(true);
+  const [checked] = useState(true);
 
-  // selected image delete
+  // Function for check all images are selected
+  const areAllImagesSelected = images.every((image) => image.selected);
+
+  // Function for selected image delete
   const handleImageClick = () => {
     const updatedImages = images.filter((image) => !image.selected);
     setImages(updatedImages);
   };
 
-  // selected image deselect
-  const handelImageDeselect = () => {
+  // Function for selected image deselect & selected all images
+  const handelImageSelectDeselect = (selected) => {
     const updatedImages = images.map((image) => ({
       ...image,
-      selected: false,
+      selected: selected,
     }));
 
     setImages(updatedImages);
-    !setChecked;
+    // !setChecked;
   };
 
   return (
@@ -32,25 +35,34 @@ function SelectItems({ images, setImages }) {
               type="checkbox"
               value=""
               name="bordered-checkbox"
-              onChange={handelImageDeselect}
+              onChange={() => handelImageSelectDeselect(false)}
               checked={checked}
               id="checkbox"
               className=" w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 hover:cursor-pointer"
             />
             <label
-              className="font-semibold text-md md:text-lg hover:cursor-pointer"
+              className="font-semibold text-xs sm:text-lg hover:cursor-pointer"
               htmlFor="checkbox"
             >
               {selectedItemCount} items selected
             </label>
           </div>
-          <button
-            type="button"
-            className="md:px-7 px-4 py-2 text-sm font-semibold rounded-3xl bg-gray-50 hover:bg-red-100 text-red-600"
-            onClick={handleImageClick}
-          >
-            Delete Files
-          </button>
+          <div className="flex gap-1 md:gap-3">
+            <button
+              type="button"
+              className="md:px-7 px-3 py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-gray-50 hover:bg-blue-100 text-blue-600"
+              onClick={() => handelImageSelectDeselect(!areAllImagesSelected)}
+            >
+              {areAllImagesSelected ? "Deselect All" : "Select All"}
+            </button>
+            <button
+              type="button"
+              className="md:px-7 px-3 py-2 text-xs sm:text-sm font-semibold rounded-3xl bg-gray-50 hover:bg-red-100 text-red-600"
+              onClick={handleImageClick}
+            >
+              Delete Files
+            </button>
+          </div>
         </div>
       ) : (
         <div className="px-5 py-4 border-b text-xl font-semibold flex items-center gap-2">

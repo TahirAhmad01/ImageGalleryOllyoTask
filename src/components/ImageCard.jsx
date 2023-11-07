@@ -14,11 +14,11 @@ function ImageCard({
   const ref = useRef(null);
 
   //image card drag
-  const [, drop] = useDrop({
+  const [{ isDrop }, drop] = useDrop({
     accept: "card",
     collect(monitor) {
       return {
-        isDrop: !!monitor.isOver(),
+        insDrop: !!monitor.isOver(),
       };
     },
     hover(item, monitor) {
@@ -37,12 +37,12 @@ function ImageCard({
       const hoverMiddleY = hoverBoundingRect;
       const clientOffset = monitor.getClientOffset();
 
-      const hoverClientY = clientOffset.x - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset.y - hoverBoundingRect.top) / 2;
 
-      if (
-        (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) ||
-        (dragIndex > hoverIndex && hoverClientY > hoverMiddleY)
-      ) {
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
       moveCard(dragIndex, hoverIndex);
@@ -76,7 +76,10 @@ function ImageCard({
 
   return (
     <div
-      className={`border-2 rounded-lg bg-gray-300 overflow-hidden block relative before:contents[""] before:absolute before:h-0 before:w-0 before:bg-black before:opacity-0 before:transition before:ease-in-out before:duration-[.6s] before:z-40 hover:before:opacity-40 hover:before:h-full hover:before:w-full hover:cursor-pointer group  ${isDragging && "border-black opacity-20"}`}
+      className={`border-2 rounded-lg bg-gray-300 overflow-hidden block relative before:contents[""] before:absolute before:h-0 before:w-0 before:bg-black before:opacity-0 before:transition before:ease-in-out before:duration-[.6s] before:z-40 hover:before:opacity-40 hover:before:h-full hover:before:w-full hover:cursor-pointer group ${
+        isDrop &&
+        "transition ease-in-out duration-[6s] border-red-800 rotate-180"
+      } ${isDragging && "border-black opacity-50 h-10 w-10"}`}
       onClick={() => onClick(index + 1)}
       ref={ref}
     >
